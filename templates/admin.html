@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Stored Logins</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #fafafa;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            width: 60%;
+            margin: auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <h2>Stored Logins</h2>
+    <table>
+        <tr>
+            <th>Username</th>
+            <th>Password</th>
+        </tr>
+        {% for username, password in data %}
+        <tr>
+            <td>{{ username }}</td>
+            <td>{{ password }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
