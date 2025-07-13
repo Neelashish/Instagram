@@ -1,0 +1,107 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #000;
+  color: #fff;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.phones img {
+  height: 600px;
+  margin-right: 50px;
+}
+
+.login-box {
+  width: 350px;
+}
+
+.login-form {
+  background-color: #121212;
+  border: 1px solid #222;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form h1 {
+  font-family: 'Grand Hotel', cursive;
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.login-form input {
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  color: white;
+  border-radius: 3px;
+}
+
+.login-form button {
+  margin-top: 10px;
+  padding: 10px;
+  width: 100%;
+  background-color: #3797f0;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+.or-divider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: #333;
+}
+
+.or-divider span {
+  margin: 0 10px;
+  color: #999;
+  font-weight: bold;
+}
+
+.fb-login {
+  background: none;
+  border: none;
+  color: #3897f0;
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.forgot {
+  font-size: 0.9rem;
+  color: #b3b3b3;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.signup-box {
+  margin-top: 10px;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #222;
+  background-color: #121212;
+}
+
+.signup-box a {
+  color: #3797f0;
+  text-decoration: none;
+}
